@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CardFragment extends Fragment {
     private static ArrayList<Card> ladsPack = InitCardDeckUtils.getLadsPack();
     private TextView mBtnStats;
     private TextView mBtnInfo;
-    private TextView mName;
+    private ImageView mImage;
     private TextView mHeight;
     private TextView mWeapons;
     private TextView mHumour;
@@ -60,7 +61,7 @@ public class CardFragment extends Fragment {
         addClickListener(mBtnStats);
         mBtnInfo = (TextView) rootView.findViewById(R.id.card_info);
         addClickListener(mBtnInfo);
-        mName = (TextView) rootView.findViewById(R.id.card_name);
+        mImage = (ImageView) rootView.findViewById(R.id.card_image);
         mHeight = (TextView) rootView.findViewById(R.id.card_height);
         mWeapons = (TextView) rootView.findViewById(R.id.card_weapons);
         mHumour = (TextView) rootView.findViewById(R.id.card_humour);
@@ -75,7 +76,7 @@ public class CardFragment extends Fragment {
         mCv5 = (CardView) rootView.findViewById(R.id.cv_5);
         mCvInfo = (CardView) rootView.findViewById(R.id.cv_info);
 
-        mName.setText(ladsPack.get(getShownIndex()).getName());
+        mImage.setBackground(getImage());
         Log.d(TAG, "setting name as:" + ladsPack.get(getShownIndex()).getName());
         mHeight.setText(ladsPack.get(getShownIndex()).getHeight()+"");
         Log.d(TAG, "setting height as:" + ladsPack.get(getShownIndex()).getHeight());
@@ -90,6 +91,24 @@ public class CardFragment extends Fragment {
         mInfo.setText(ladsPack.get(getShownIndex()).getInfo());
 
         return rootView;
+    }
+
+    private Drawable getImage() {
+        switch (getShownIndex()){
+            case 0:
+                return getResources().getDrawable(R.drawable.bear);
+            case 1:
+                return getResources().getDrawable(R.drawable.cat);
+            case 2:
+                return getResources().getDrawable(R.drawable.dog);
+            case 3:
+                return getResources().getDrawable(R.drawable.giraffe);
+            case 4:
+                return getResources().getDrawable(R.drawable.lion);
+            case 5:
+                return getResources().getDrawable(R.drawable.rabbit);
+        }
+        return null;
     }
 
     private void addClickListener(final TextView button) {
