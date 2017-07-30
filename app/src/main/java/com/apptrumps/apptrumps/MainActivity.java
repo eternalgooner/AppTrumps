@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTxtPlayGame;
+    private TextView mTxtViewPacks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
-                Intent intent = new Intent(context, PlayGameActivity.class);
+                Intent intent = new Intent(context, ViewPacksActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mTxtViewPacks = (TextView) findViewById(R.id.txt_view_packs);
+        mTxtViewPacks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = getApplicationContext();
+                Intent intent = new Intent(context, ViewPacksActivity.class);
                 startActivity(intent);
             }
         });

@@ -67,62 +67,112 @@
 
 
 
+    <!--  height attribute    -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="1dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/card_height"/>
+            android:layout_height="match_parent">
+            <TextView
+               style="@style/card_textview_category"
+                android:text="Height"
+                android:layout_weight="2" />
+
+            <TextView
+                style="@style/card_textview_attribute"
+                android:id="@+id/card_height"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 
+    <!--  weapons attribute    -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="1dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/card_weapons"/>
+            android:layout_height="match_parent">
+            <TextView
+                style="@style/card_textview_category"
+                android:text="Weapons"
+                android:layout_weight="2" />
+
+            <TextView
+                style="@style/card_textview_attribute"
+                android:id="@+id/card_weapons"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 
+    <!--  humour attribute    -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="1dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/card_humour"/>
+            android:layout_height="match_parent">
+            <TextView
+                style="@style/card_textview_category"
+                android:text="Humour"
+                android:layout_weight="2" />
+
+            <TextView
+                style="@style/card_textview_attribute"
+                android:id="@+id/card_humour"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
-
+    <!--  intelligence attribute    -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginBottom="1dp">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/card_intelligence"/>
+            android:layout_height="match_parent">
+            <TextView
+                style="@style/card_textview_category"
+                android:text="Intelligence"
+                android:layout_weight="2" />
+
+            <TextView
+                style="@style/card_textview_attribute"
+                android:id="@+id/card_intelligence"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 
+    <!--  athleticism attribute    -->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/card_athleticism"/>
+            android:layout_height="match_parent">
+            <TextView
+                style="@style/card_textview_category"
+                android:text="Athleticism"
+                android:layout_weight="2" />
+
+            <TextView
+                style="@style/card_textview_attribute"
+                android:id="@+id/card_athleticism"
+                android:layout_weight="1"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
