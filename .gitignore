@@ -8,3 +8,8 @@
 /captures
 .externalNativeBuild
 .properties
+.bat
+/.bat
+/.gradle
+.gradlew
+
