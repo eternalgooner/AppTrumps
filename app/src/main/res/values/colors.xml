@@ -2,5 +2,18 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ed3877</color>
+
+    <!-- attribute category colours -->
+    <color name="colourAttribute1">#d4e7ff</color>
+    <color name="colourAttribute2">#ddecff</color>
+    <color name="colourAttribute3">#e7f2ff</color>
+    <color name="colourAttribute4">#f1f7ff</color>
+    <color name="colourAttribute5">#f9fcff</color>
+
+    <!-- STATS & INFO colours selected-->
+    <color name="buttonSelected">#646464</color>
+
+    <!-- STATS & INFO colours unselected-->
+    <color name="buttonUnselected">#000000</color>
 </resources>

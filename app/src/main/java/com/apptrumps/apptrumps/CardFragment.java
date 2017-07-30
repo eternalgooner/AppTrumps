@@ -1,9 +1,11 @@
 package com.apptrumps.apptrumps;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +21,22 @@ import java.util.ArrayList;
 public class CardFragment extends Fragment {
     private static final String TAG = CardFragment.class.getSimpleName();
     private static ArrayList<Card> ladsPack = InitCardDeckUtils.getLadsPack();
+    private TextView mBtnStats;
+    private TextView mBtnInfo;
     private TextView mName;
     private TextView mHeight;
     private TextView mWeapons;
     private TextView mHumour;
     private TextView mIntelligence;
     private TextView mAthleticism;
+    private TextView mInfo;
+    private CardView mCv1;
+    private CardView mCv2;
+    private CardView mCv3;
+    private CardView mCv4;
+    private CardView mCv5;
+    private CardView mCvInfo;
+    private boolean mIsStatsSelected = true;
 
     public CardFragment newInstance(int position){
         Log.d(TAG, "in CardFragment newInstance(), position is:" + position);
@@ -44,12 +56,24 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.card_layout_fragment, container, false);
 
+        mBtnStats = (TextView) rootView.findViewById(R.id.card_stats);
+        addClickListener(mBtnStats);
+        mBtnInfo = (TextView) rootView.findViewById(R.id.card_info);
+        addClickListener(mBtnInfo);
         mName = (TextView) rootView.findViewById(R.id.card_name);
         mHeight = (TextView) rootView.findViewById(R.id.card_height);
         mWeapons = (TextView) rootView.findViewById(R.id.card_weapons);
         mHumour = (TextView) rootView.findViewById(R.id.card_humour);
         mIntelligence = (TextView) rootView.findViewById(R.id.card_intelligence);
         mAthleticism = (TextView) rootView.findViewById(R.id.card_athleticism);
+        mInfo = (TextView) rootView.findViewById(R.id.card_textview_info);
+
+        mCv1 = (CardView) rootView.findViewById(R.id.cv_1);
+        mCv2 = (CardView) rootView.findViewById(R.id.cv_2);
+        mCv3 = (CardView) rootView.findViewById(R.id.cv_3);
+        mCv4 = (CardView) rootView.findViewById(R.id.cv_4);
+        mCv5 = (CardView) rootView.findViewById(R.id.cv_5);
+        mCvInfo = (CardView) rootView.findViewById(R.id.cv_info);
 
         mName.setText(ladsPack.get(getShownIndex()).getName());
         Log.d(TAG, "setting name as:" + ladsPack.get(getShownIndex()).getName());
@@ -63,7 +87,68 @@ public class CardFragment extends Fragment {
         Log.d(TAG, "setting intelligence as:" + ladsPack.get(getShownIndex()).getIntelligence());
         mAthleticism.setText(ladsPack.get(getShownIndex()).getAthleticism()+"");
         Log.d(TAG, "setting athleticism as:" + ladsPack.get(getShownIndex()).getAthleticism());
+        mInfo.setText(ladsPack.get(getShownIndex()).getInfo());
 
         return rootView;
+    }
+
+    private void addClickListener(final TextView button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mIsStatsSelected){
+                    if(v.getId() == R.id.card_stats){
+                        //do nothing as button already selected
+                    }else{
+                        //change state of both buttons reversing their style
+                        mIsStatsSelected = false;
+                        setBtnStatsToUnselectedAndBtnInfoToSelected();
+                    }
+                }else {
+                    if(v.getId() == R.id.card_stats){
+                        mIsStatsSelected = true;
+                        setBtnStatsToSelectedAndBtnInfoToUnselected();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setBtnStatsToSelectedAndBtnInfoToUnselected() {
+        mBtnStats.setTextAppearance(R.style.buttonSelected);
+        mBtnStats.setBackgroundResource(R.drawable.gradient_selected);
+
+        mBtnInfo.setTextAppearance(R.style.buttonUnselected);
+        mBtnInfo.setBackgroundResource(R.drawable.gradient_unselected);
+
+        showStats();
+    }
+
+    private void showStats() {
+        mCvInfo.setVisibility(View.GONE);
+        mCv1.setVisibility(View.VISIBLE);
+        mCv2.setVisibility(View.VISIBLE);
+        mCv3.setVisibility(View.VISIBLE);
+        mCv4.setVisibility(View.VISIBLE);
+        mCv5.setVisibility(View.VISIBLE);
+    }
+
+    private void setBtnStatsToUnselectedAndBtnInfoToSelected() {
+        mBtnStats.setTextAppearance(R.style.buttonUnselected);
+        mBtnStats.setBackgroundResource(R.drawable.gradient_unselected);
+
+        mBtnInfo.setTextAppearance(R.style.buttonSelected);
+        mBtnInfo.setBackgroundResource(R.drawable.gradient_selected);
+
+        showInfo();
+    }
+
+    private void showInfo() {
+        mCvInfo.setVisibility(View.VISIBLE);
+        mCv1.setVisibility(View.GONE);
+        mCv2.setVisibility(View.GONE);
+        mCv3.setVisibility(View.GONE);
+        mCv4.setVisibility(View.GONE);
+        mCv5.setVisibility(View.GONE);
     }
 }
