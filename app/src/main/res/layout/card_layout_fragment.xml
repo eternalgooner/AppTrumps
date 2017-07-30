@@ -10,11 +10,12 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="8"
         android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:id="@+id/card_name"/>
     </android.support.v7.widget.CardView>
 
 
@@ -39,6 +40,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:text="STATS"
+                    android:text="STATS"
+                    android:textSize="25dp"
+                    android:id="@+id/card_stats"
                     android:gravity="center"/>
             </android.support.v7.widget.CardView>
 
@@ -53,6 +57,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     tools:text="INFO"
+                    android:text="INFO"
+                    android:textSize="25dp"
+                    android:id="@+id/card_info"
                     android:gravity="center"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -67,7 +74,8 @@
         android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/card_height"/>
     </android.support.v7.widget.CardView>
 
 
@@ -78,7 +86,8 @@
         android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/card_weapons"/>
     </android.support.v7.widget.CardView>
 
 
@@ -89,7 +98,8 @@
         android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/card_humour"/>
     </android.support.v7.widget.CardView>
 
 
@@ -100,7 +110,8 @@
         android:layout_marginBottom="1dp">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/card_intelligence"/>
     </android.support.v7.widget.CardView>
 
 
@@ -110,7 +121,8 @@
         android:layout_weight="1">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/card_athleticism"/>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
