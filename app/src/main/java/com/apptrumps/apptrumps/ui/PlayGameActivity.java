@@ -1,4 +1,4 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +11,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 
+import com.apptrumps.apptrumps.R;
+import com.apptrumps.apptrumps.model.Card;
+import com.apptrumps.apptrumps.utils.InitCardDeckUtils;
+
 import java.util.ArrayList;
 
 /**
  * Created by David on 30-Jul-17.
  */
 
-public class ViewPacksActivity extends FragmentActivity implements ViewPager.PageTransformer {
+public class PlayGameActivity extends FragmentActivity implements ViewPager.PageTransformer{
     private static final String TAG = PlayGameActivity.class.getSimpleName();
     private int mNumCards;
     private ViewPager mPager;
@@ -34,7 +38,7 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
         mNumCards = ladsPack.size();
 
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ViewPacksActivity.CardSlidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new CardSlidePagerAdapter(getSupportFragmentManager());
         mPager.setPageTransformer(true, new PlayGameActivity());
         mPager.setAdapter(mPagerAdapter);
     }
@@ -74,7 +78,7 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
 
     }
 
-    private class CardSlidePagerAdapter extends FragmentStatePagerAdapter {
+    private class CardSlidePagerAdapter extends FragmentStatePagerAdapter{
         public CardSlidePagerAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
         }

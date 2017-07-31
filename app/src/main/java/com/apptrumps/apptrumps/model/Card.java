@@ -1,4 +1,4 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.model;
 
 import java.io.Serializable;
 

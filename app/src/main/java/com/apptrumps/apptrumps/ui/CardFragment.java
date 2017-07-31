@@ -1,4 +1,4 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.ui;
 
 
 import android.graphics.drawable.Drawable;
@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.apptrumps.apptrumps.R;
+import com.apptrumps.apptrumps.model.Card;
+import com.apptrumps.apptrumps.utils.InitCardDeckUtils;
+
 import java.util.ArrayList;
 
 /**
@@ -24,6 +28,9 @@ public class CardFragment extends Fragment {
     private static ArrayList<Card> ladsPack = InitCardDeckUtils.getLadsPack();
     private TextView mBtnStats;
     private TextView mBtnInfo;
+    private TextView mTxtName;
+    private TextView mTxtNumCards;
+    private ImageView mTopTrumpIcon;
     private ImageView mImage;
     private TextView mHeight;
     private TextView mWeapons;
@@ -57,6 +64,9 @@ public class CardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.card_layout_fragment, container, false);
 
+        mTopTrumpIcon = (ImageView) rootView.findViewById(R.id.top_trump_icon);
+        mTxtName = (TextView) rootView.findViewById(R.id.txt_name);
+        mTxtNumCards = (TextView) rootView.findViewById(R.id.txt_num_cards);
         mBtnStats = (TextView) rootView.findViewById(R.id.card_stats);
         addClickListener(mBtnStats);
         mBtnInfo = (TextView) rootView.findViewById(R.id.card_info);
@@ -76,7 +86,12 @@ public class CardFragment extends Fragment {
         mCv5 = (CardView) rootView.findViewById(R.id.cv_5);
         mCvInfo = (CardView) rootView.findViewById(R.id.cv_info);
 
-        mImage.setBackground(getImage());
+        if(ladsPack.get(getShownIndex()).isTopTrump()){
+            mTopTrumpIcon.setVisibility(View.VISIBLE);
+        }
+        //mImage.setBackground(getImage());
+        mTxtName.setText(ladsPack.get(getShownIndex()).getName());
+        mTxtNumCards.setText((getShownIndex() + 1) + "/" + ladsPack.size());
         Log.d(TAG, "setting name as:" + ladsPack.get(getShownIndex()).getName());
         mHeight.setText(ladsPack.get(getShownIndex()).getHeight()+"");
         Log.d(TAG, "setting height as:" + ladsPack.get(getShownIndex()).getHeight());

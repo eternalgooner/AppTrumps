@@ -1,4 +1,4 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,10 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+
+import com.apptrumps.apptrumps.R;
+import com.apptrumps.apptrumps.model.Card;
+import com.apptrumps.apptrumps.utils.InitCardDeckUtils;
 
 import java.util.ArrayList;
 
@@ -18,7 +21,7 @@ import java.util.ArrayList;
  * Created by David on 30-Jul-17.
  */
 
-public class PlayGameActivity extends FragmentActivity implements ViewPager.PageTransformer{
+public class ViewPacksActivity extends FragmentActivity implements ViewPager.PageTransformer {
     private static final String TAG = PlayGameActivity.class.getSimpleName();
     private int mNumCards;
     private ViewPager mPager;
@@ -35,7 +38,7 @@ public class PlayGameActivity extends FragmentActivity implements ViewPager.Page
         mNumCards = ladsPack.size();
 
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new CardSlidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new ViewPacksActivity.CardSlidePagerAdapter(getSupportFragmentManager());
         mPager.setPageTransformer(true, new PlayGameActivity());
         mPager.setAdapter(mPagerAdapter);
     }
@@ -75,7 +78,7 @@ public class PlayGameActivity extends FragmentActivity implements ViewPager.Page
 
     }
 
-    private class CardSlidePagerAdapter extends FragmentStatePagerAdapter{
+    private class CardSlidePagerAdapter extends FragmentStatePagerAdapter {
         public CardSlidePagerAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
         }

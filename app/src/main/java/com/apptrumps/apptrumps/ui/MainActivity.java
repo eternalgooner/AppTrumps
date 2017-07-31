@@ -1,4 +1,4 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.apptrumps.apptrumps.R;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTxtPlayGame;

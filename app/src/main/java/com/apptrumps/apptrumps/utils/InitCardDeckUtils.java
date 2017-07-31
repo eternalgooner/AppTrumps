@@ -1,7 +1,8 @@
-package com.apptrumps.apptrumps;
+package com.apptrumps.apptrumps.utils;
+
+import com.apptrumps.apptrumps.model.Card;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by David on 30-Jul-17.
