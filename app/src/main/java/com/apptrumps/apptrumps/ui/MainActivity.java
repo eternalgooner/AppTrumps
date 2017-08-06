@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Context context = getApplicationContext();
-                Intent intent = new Intent(context, ViewPacksActivity.class);
+                Intent intent = new Intent(context, ChooseConnectionType.class);
                 startActivity(intent);
             }
         });

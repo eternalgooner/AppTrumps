@@ -22,7 +22,7 @@ import java.util.ArrayList;
  */
 
 public class ViewPacksActivity extends FragmentActivity implements ViewPager.PageTransformer {
-    private static final String TAG = PlayGameActivity.class.getSimpleName();
+    private static final String TAG = ViewPacksActivity.class.getSimpleName();
     private int mNumCards;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -39,7 +39,7 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
 
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ViewPacksActivity.CardSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setPageTransformer(true, new PlayGameActivity());
+        mPager.setPageTransformer(true, new ViewPacksActivity());
         mPager.setAdapter(mPagerAdapter);
     }
 
