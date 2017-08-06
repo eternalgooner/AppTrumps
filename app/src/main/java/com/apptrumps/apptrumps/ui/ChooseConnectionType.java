@@ -1,6 +1,7 @@
 package com.apptrumps.apptrumps.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WifiManager;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -103,6 +104,8 @@ public class ChooseConnectionType extends AppCompatActivity {
     private void lookForWifiP2PConnections() {
         Log.d(TAG, "in lookForWifiP2PConnections()");
         //TODO start new activity
+        Intent intent = new Intent(this, ConnectAndPlay.class);
+        startActivity(intent);
 //        wifiP2pManager.discoverPeers(channel, new WifiP2pManager.ActionListener(){
 //
 //           @Override

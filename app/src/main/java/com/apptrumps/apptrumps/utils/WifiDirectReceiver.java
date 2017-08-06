@@ -3,13 +3,10 @@ package com.apptrumps.apptrumps.utils;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pConfig;
-import android.net.wifi.p2p.WifiP2pDevice;
-import android.net.wifi.p2p.WifiP2pDeviceList;
+
 import android.net.wifi.p2p.WifiP2pManager;
 import android.util.Log;
 
-import com.apptrumps.apptrumps.ui.ChooseConnectionType;
 import com.apptrumps.apptrumps.ui.ConnectAndPlay;
 
 /**
