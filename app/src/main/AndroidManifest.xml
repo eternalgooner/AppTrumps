@@ -28,7 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ViewPacksActivity" />
-        <activity android:name=".ui.ChooseConnectionType"></activity>
+        <activity android:name=".ui.ChooseConnectionType" />
+        <activity android:name=".ui.ConnectAndPlay"></activity>
     </application>
 
 </manifest>
