@@ -54,6 +54,7 @@ public class WifiDirectReceiver extends BroadcastReceiver {
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             Log.d(TAG, "3: connection update - connect or disconnect");
             // Respond to new connection or disconnections
+            //gameScreen.updateDeviceList();
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             Log.d(TAG, "4: this device wifi state has changed");
             // Respond to this device's wifi state changing

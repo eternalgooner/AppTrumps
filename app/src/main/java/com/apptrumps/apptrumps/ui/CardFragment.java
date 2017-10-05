@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apptrumps.apptrumps.R;
 import com.apptrumps.apptrumps.model.Card;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * Created by David on 30-Jul-17.
  */
 
-public class CardFragment extends Fragment {
+public class CardFragment extends Fragment{
     private static final String TAG = CardFragment.class.getSimpleName();
     private static ArrayList<Card> ladsPack = InitCardDeckUtils.getLadsPack();
     private TextView mBtnStats;
@@ -45,6 +46,7 @@ public class CardFragment extends Fragment {
     private CardView mCv5;
     private CardView mCvInfo;
     private boolean mIsStatsSelected = true;
+    private View.OnClickListener mListener;
 
     public CardFragment newInstance(int position){
         Log.d(TAG, "in CardFragment newInstance(), position is:" + position);
@@ -52,6 +54,7 @@ public class CardFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt("index", position);
         cardFragment.setArguments(args);
+        //mListener = (ViewPacksActivity) listener;
         return cardFragment;
     }
 
@@ -73,10 +76,15 @@ public class CardFragment extends Fragment {
         addClickListener(mBtnInfo);
         mImage = (ImageView) rootView.findViewById(R.id.card_image);
         mHeight = (TextView) rootView.findViewById(R.id.card_height);
+        addClickListener(mHeight);
         mWeapons = (TextView) rootView.findViewById(R.id.card_weapons);
+        addClickListener(mWeapons);
         mHumour = (TextView) rootView.findViewById(R.id.card_humour);
+        addClickListener(mHumour);
         mIntelligence = (TextView) rootView.findViewById(R.id.card_intelligence);
+        addClickListener(mIntelligence);
         mAthleticism = (TextView) rootView.findViewById(R.id.card_athleticism);
+        addClickListener(mAthleticism);
         mInfo = (TextView) rootView.findViewById(R.id.card_textview_info);
 
         mCv1 = (CardView) rootView.findViewById(R.id.cv_1);
@@ -130,16 +138,22 @@ public class CardFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "in onClick()...check which view");
                 if(mIsStatsSelected){
-                    if(v.getId() == R.id.card_stats){
-                        //do nothing as button already selected
-                    }else{
+                    Log.d(TAG, "View click - stats are currently showing");
+                    if(v.getId() == R.id.card_info){
                         //change state of both buttons reversing their style
+                        Log.d(TAG, "Card info btn pressed");
                         mIsStatsSelected = false;
                         setBtnStatsToUnselectedAndBtnInfoToSelected();
+                    }else{
+                       //checkWhichStatWasClicked(v);
+                        Log.d(TAG, "Stat pressed, listener method statClicked() should be invoked");
+                        mListener.onClick(v);
                     }
                 }else {
                     if(v.getId() == R.id.card_stats){
+                        Log.d(TAG, "Card info btn pressed");
                         mIsStatsSelected = true;
                         setBtnStatsToSelectedAndBtnInfoToUnselected();
                     }
@@ -185,4 +199,10 @@ public class CardFragment extends Fragment {
         mCv4.setVisibility(View.GONE);
         mCv5.setVisibility(View.GONE);
     }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        Log.d(TAG, "setting on click listener in fragment");
+        mListener = listener;
+    }
+
 }

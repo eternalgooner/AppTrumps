@@ -1,6 +1,5 @@
 package com.apptrumps.apptrumps.ui;
 
-import android.bluetooth.BluetoothClass;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -9,24 +8,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apptrumps.apptrumps.R;
 import com.apptrumps.apptrumps.model.Device;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by David on 06-Aug-17.
  */
 
-public class DeviceAdapter extends ArrayAdapter<Device> {
+public class DeviceAdapter extends ArrayAdapter<Device> implements View.OnClickListener{
+
     private static final String TAG = DeviceAdapter.class.getSimpleName();
     private List deviceList;
+    private int currentItem;
+    private ListItemClickListener onClickListener;
 
     public DeviceAdapter(@NonNull Context context, @LayoutRes int resource) {
         super(context, resource);
@@ -34,8 +33,11 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
 
     public DeviceAdapter(Context context, int resource, List<Device> deviceList){
         super(context, resource);
-        Log.d(TAG, "in DeviceAdapter constuctor(3)");
+        Log.d(TAG, "in DeviceAdapter constuctor(), size of deviceList: " + deviceList.size());
+        onClickListener = (ConnectAndPlay) context;
         this.deviceList = deviceList;
+
+        //notifyDataSetChanged();
     }
 
     @NonNull
@@ -61,6 +63,31 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
                 name.setText(device.getName());
             }
         }
+        convertView.setOnClickListener(this);
         return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        Log.d(TAG, "in getCount(), size: " + deviceList.size());
+        return deviceList.size();
+    }
+
+    @Nullable
+    @Override
+    public Device getItem(int position) {
+        Log.d(TAG, "in getItem(), position is: " + position);
+        currentItem = position;
+        return (Device) deviceList.get(position);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d(TAG, "in onClick()");
+        onClickListener.onListItemClick(currentItem);
+    }
+
+    public interface ListItemClickListener{
+        void onListItemClick(int clickedItem);
     }
 }

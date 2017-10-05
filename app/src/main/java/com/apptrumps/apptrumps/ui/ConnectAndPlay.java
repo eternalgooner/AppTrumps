@@ -2,6 +2,7 @@ package com.apptrumps.apptrumps.ui;
 
 import android.content.Context;
 import android.content.IntentFilter;
+import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
@@ -11,18 +12,20 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.apptrumps.apptrumps.R;
 import com.apptrumps.apptrumps.model.Device;
+import com.apptrumps.apptrumps.utils.FileServerAsyncTask;
 import com.apptrumps.apptrumps.utils.WifiDirectReceiver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.PeerListListener{
+public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.PeerListListener, DeviceAdapter.ListItemClickListener{
     private WifiP2pManager wifiP2pManager;
     private WifiP2pManager.Channel channel;
     private WifiDirectReceiver receiver;
@@ -30,6 +33,7 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
     private ListView deviceListView;
     private DeviceAdapter deviceAdapter;
     private ArrayList<Device> listOfDevices;
+    private WifiP2pConfig config;
     private static final String TAG = ConnectAndPlay.class.getSimpleName();
 
     @Override
@@ -40,7 +44,7 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
 
         deviceListView = (ListView) findViewById(R.id.device_list_view);
 
-        //register broadcst receiver
+        //register broadcast receiver
         wifiP2pManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = wifiP2pManager.initialize(this, getMainLooper(), null);
         receiver = new WifiDirectReceiver(wifiP2pManager, channel, this);
@@ -72,6 +76,7 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
         });
     }
 
+
     @Override
     protected void onResume() {
         Log.d(TAG, "in onResume()");
@@ -91,7 +96,7 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
         Log.d(TAG, "in onPeersAvailable() - num peers available: " + peers.getDeviceList().size());
 
         if(peers.getDeviceList().size() > 0){
-            Log.d(TAG, "peers divce list is greater than 0 - try to connect");
+            Log.d(TAG, "peers device list is greater than 0 - try to connect");
 
             listOfDevices= new ArrayList<>(10);
 //            while (peers.getDeviceList().iterator().hasNext()){
@@ -103,6 +108,9 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
             for(WifiP2pDevice device: peers.getDeviceList()){
                 Log.d(TAG, "in for loop adding devices");
                 listOfDevices.add(new Device(device.deviceName, device.deviceAddress, device.isGroupOwner()));
+                config = new WifiP2pConfig();
+                config.deviceAddress = device.deviceAddress;
+                //config.wps.setup = WpsInfo.PBC;
             }
 
             Log.d(TAG, "creating device adapter & setting adapter for list view");
@@ -136,7 +144,32 @@ public class ConnectAndPlay extends AppCompatActivity implements WifiP2pManager.
     }
 
     private void showItems() {
+        Log.d(TAG, "in showItems() - setting adapter, should update UI");
         deviceListView.setAdapter(deviceAdapter);
+
     }
 
+    @Override
+    public void onListItemClick(int clickedItem) {
+        Log.d(TAG, "in onListItemClick(), item: " + clickedItem);
+//        WifiP2pConfig config = new WifiP2pConfig(listOfDevices);
+            wifiP2pManager.connect(channel, config, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Object returnedObj = new FileServerAsyncTask(ConnectAndPlay.this, deviceListView);
+                Log.d(TAG, "in onSuccess() returned object is: " + (String) returnedObj.toString());
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.d(TAG, "in onFailure() - didn't work...");
+            }
+        });
+    }
+
+    //todo need to update list if connection stopped/lost
+//    public void updateDeviceList() {
+//        onPeersAvailable();
+//        deviceListView.setAdapter();
+//    }
 }

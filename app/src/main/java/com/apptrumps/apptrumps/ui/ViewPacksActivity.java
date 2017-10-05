@@ -10,6 +10,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.apptrumps.apptrumps.R;
 import com.apptrumps.apptrumps.model.Card;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
  * Created by David on 30-Jul-17.
  */
 
-public class ViewPacksActivity extends FragmentActivity implements ViewPager.PageTransformer {
+public class ViewPacksActivity extends FragmentActivity implements ViewPager.PageTransformer, View.OnClickListener {
     private static final String TAG = ViewPacksActivity.class.getSimpleName();
     private int mNumCards;
     private ViewPager mPager;
@@ -41,6 +42,7 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
         mPagerAdapter = new ViewPacksActivity.CardSlidePagerAdapter(getSupportFragmentManager());
         mPager.setPageTransformer(true, new ViewPacksActivity());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setOnClickListener(this);
     }
 
     @Override
@@ -50,11 +52,15 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
             // Back button. This calls finish() on this activity and pops the back stack.
             super.onBackPressed();
         } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+            // Otherwise, select the previous step. - go back to next card
+            //mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+
+            //leave pack screen & back to menu
+            super.onBackPressed();
         }
     }
 
+    //method to transition to the next screen/card - as they are all stacked in a deck
     @Override
     public void transformPage(View page, float position) {
         int pageWIdth = page.getWidth();
@@ -78,6 +84,61 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
 
     }
 
+//    @Override
+//    public void statClicked(View v) {
+//        Log.d(TAG, "statClicked() - look for match");
+//        int statId = v.getId();
+//        switch (statId){
+//            case R.id.card_height:
+//                statClicked("Height", ladsPack.get(mPager.getCurrentItem()).getHeight());
+//                break;
+//            case R.id.card_athleticism:
+//                statClicked("Athleticism", ladsPack.get(mPager.getCurrentItem()).getAthleticism());
+//                break;
+//            case R.id.card_humour:
+//                statClicked("Humour", ladsPack.get(mPager.getCurrentItem()).getHumour());
+//                break;
+//            case R.id.card_intelligence:
+//                statClicked("Intelligence", ladsPack.get(mPager.getCurrentItem()).getIntelligence());
+//                break;
+//            case R.id.card_weapons:
+//                statClicked("Weapons", ladsPack.get(mPager.getCurrentItem()).getWeapons());
+//                break;
+//            default:
+//                Log.d(TAG, "no match found for button click - expecting stat item click");
+//        }
+//    }
+
+    private void statClicked(String cat, int value) {
+        String message = String.format("Cat pressed: %s, Value: %d", cat, value);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d(TAG, "in onClick() check which stat clicked");
+        int statId = v.getId();
+        switch (statId){
+            case R.id.card_height:
+                statClicked("Height", ladsPack.get(mPager.getCurrentItem()).getHeight());
+                break;
+            case R.id.card_athleticism:
+                statClicked("Athleticism", ladsPack.get(mPager.getCurrentItem()).getAthleticism());
+                break;
+            case R.id.card_humour:
+                statClicked("Humour", ladsPack.get(mPager.getCurrentItem()).getHumour());
+                break;
+            case R.id.card_intelligence:
+                statClicked("Intelligence", ladsPack.get(mPager.getCurrentItem()).getIntelligence());
+                break;
+            case R.id.card_weapons:
+                statClicked("Weapons", ladsPack.get(mPager.getCurrentItem()).getWeapons());
+                break;
+            default:
+                Log.d(TAG, "no match found for button click - expecting stat item click");
+        }
+    }
+
     private class CardSlidePagerAdapter extends FragmentStatePagerAdapter {
         public CardSlidePagerAdapter(FragmentManager fragmentManager){
             super(fragmentManager);
@@ -86,7 +147,9 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
         @Override
         public Fragment getItem(int position) {
             Log.d(TAG, "in CardSlidePagerAdapter - getItem(), position is:" + position);
-            return new CardFragment().newInstance(position);
+            CardFragment cardFragment = new CardFragment().newInstance(position);
+            cardFragment.setOnClickListener(ViewPacksActivity.this);
+            return cardFragment;
         }
 
         @Override
@@ -95,4 +158,5 @@ public class ViewPacksActivity extends FragmentActivity implements ViewPager.Pag
         }
 
     }
+
 }
